@@ -5,6 +5,7 @@ import jpabook_v2.jpashop_v2.domain.Order;
 import jpabook_v2.jpashop_v2.domain.OrderStatus;
 import jpabook_v2.jpashop_v2.repository.OrderRepository;
 import jpabook_v2.jpashop_v2.repository.OrderSearch;
+import jpabook_v2.jpashop_v2.repository.order.simplequery.OrderSimpleQueryDto;
 import jpabook_v2.jpashop_v2.repository.order.simplequery.OrderSimpleQueryRepository;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
@@ -31,15 +32,15 @@ public class OrderSimpleApiController {
 
     private final OrderRepository orderRepository;
     private final OrderSimpleQueryRepository orderSimpleQueryRepository;
-//    @GetMapping("/api/v1/simple-orders")
-//    public List<Order> ordersV1(){//EAGER로 변경시 : findAllByString : JPQL은 그대로 SQL로 번역. =>Order만 가져오는 쿼리인데 EAGER로 되있으면 연관된 엔티티 모두 다 조회한다!!(N+1문제 발생), 다른 API에서 불필요한 데이터들도 끌고 온다!
-//        List<Order> all = orderRepository.findAllByCriteria(new OrderSearch());//List<Order>
-//        return all;//
-//        for (Order order : all) {
-//            order.getMember().getName();//Lazy 강제 초기화
-//            order.getDelivery().getAddress();//Lazy 강제 초기화
-//        }
-//    }
+    @GetMapping("/api/v1/simple-orders")
+    public List<Order> ordersV1(){//EAGER로 변경시 : findAllByString : JPQL은 그대로 SQL로 번역. =>Order만 가져오는 쿼리인데 EAGER로 되있으면 연관된 엔티티 모두 다 조회한다!!(N+1문제 발생), 다른 API에서 불필요한 데이터들도 끌고 온다!
+        List<Order> all = orderRepository.findAllByCriteria(new OrderSearch());//List<Order>
+        return all;//
+        for (Order order : all) {
+            order.getMember().getName();//Lazy 강제 초기화
+            order.getDelivery().getAddress();//Lazy 강제 초기화
+        }
+    }
 
     @GetMapping("/api/v2/simple-orders")
     public List<SimpleOrderDto> ordersV2(){
