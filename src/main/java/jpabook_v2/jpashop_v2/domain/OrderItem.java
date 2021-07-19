@@ -1,5 +1,6 @@
 package jpabook_v2.jpashop_v2.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jpabook_v2.jpashop_v2.domain.Item.Item;
 import jpabook_v2.jpashop_v2.domain.Item.Item;
 import lombok.AccessLevel;
@@ -23,6 +24,7 @@ public class OrderItem {
     @JoinColumn(name="item_id")
     private Item item;//Item과 OrderItem과 관계 매핑!
 
+    @JsonIgnore
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name="order_id")
     private Order order;//FK가 된다. order와 매핑 :다대일(ManytoOne). 하나의 order는 여러개의 orderitem을 가질 수 있다!
