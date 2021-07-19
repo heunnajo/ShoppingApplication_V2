@@ -14,6 +14,8 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static java.util.stream.Collectors.*;
+
 //조회 시 다음과 같은 연관관계 존재
 
 /**
@@ -46,7 +48,15 @@ public class OrderSimpleApiController {
         //루프
         List<SimpleOrderDto> result = orders.stream()//Order를 DTO로 변환!
                 .map(o -> new SimpleOrderDto(o))
-                .collect(Collectors.toList());
+                .collect(toList());
+        return result;
+    }
+    @GetMapping("/api/v3/simple-orders")
+    public List<SimpleOrderDto> ordersV3() {
+        List<Order> orders = orderRepository.findAllWithMemberDelivery();
+        List<SimpleOrderDto> result = orders.stream()
+                .map(o -> new SimpleOrderDto(o))
+                .collect(toList());
         return result;
     }
 
