@@ -41,10 +41,10 @@ public class OrderController {
         return "redirect:/orders";
 //        return "redirect/orders"+orderId;//주문된 결과 페이지로 리다이렉트
     }
-    @GetMapping("/orders")
     //form 태그로 HTML Form 데이터들 전송하면 값이 있는 상태로 OrderSearch가 넘겨진다!
     //GetMapping으로  요청파라미터 데이터들 파라미터 바인딩한다!!
     //@ModelAttribute에 "orderSearch"라는 이름으로 모델에 OrderSearch 담아준다!
+    @GetMapping("/orders")
     public String orderList(@ModelAttribute("orderSearch") OrderSearch orderSearch, Model model){
         List<Order> orders = orderService.findOrders(orderSearch);
         model.addAttribute("orders",orders);

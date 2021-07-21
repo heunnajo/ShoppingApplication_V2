@@ -13,7 +13,7 @@
                 <div class="form-group mx-sm-1 mb-2">
                     <select th:field="*{orderStatus}" class="form-control"> <option value="">주문상태</option>
                         <option th:each=
-                                        "status : ${T(jpabook.jpashop.domain.OrderStatus).values()}"
+                                        "status : ${T(jpabook_v2.jpashop_v2.domain.OrderStatus).values()}"
                                 th:value="${status}"
                                 th:text="${status}">option
                         </option>
@@ -52,7 +52,6 @@
 </div> <!-- /container -->
 </body>
 <script>
-//캔슬 누르면 이 스크립트 호출된다!
     function cancel(id) {
         var form = document.createElement("form");
         form.setAttribute("method", "post");
