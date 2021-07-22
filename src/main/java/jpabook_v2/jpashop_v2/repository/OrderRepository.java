@@ -60,6 +60,16 @@ public class OrderRepository {
                         " join fetch o.delivery d", Order.class
         ).getResultList();
     }
+
+    public List<Order> findAllWithItem() {
+        return em.createQuery(
+                "select distinct o from Order o" +
+                        " join fetch o.member m" +
+                        " join fetch o.delivery d" +
+                        " join fetch o.orderItems oi" +
+                        " join fetch oi.item i", Order.class)//order와 orderItems를 조인! ex) 주문 한건에 주문상품 4개면 조인하면 결과는 4개가 된다.
+                .getResultList();
+    }
 }
 /*
 public class OrderRepository {
