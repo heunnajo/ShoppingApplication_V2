@@ -57,6 +57,6 @@ public class OrderService {//이것저것 의존 많이 한다!
     }
     //검색
     public List<Order> findOrders(OrderSearch orderSearch){
-        return orderRepository.findAllByCriteria(orderSearch);//단순위임한다.=>컨트롤러에서 리포지토리로 바로 불러도 괜찮다.단순 화면 조회같은 경우.
+        return orderRepository.findAll(orderSearch);//단순위임한다.=>컨트롤러에서 리포지토리로 바로 불러도 괜찮다.단순 화면 조회같은 경우.
     }
 }
