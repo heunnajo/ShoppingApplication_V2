@@ -34,7 +34,7 @@ public class OrderSimpleApiController {
     private final OrderSimpleQueryRepository orderSimpleQueryRepository;
     @GetMapping("/api/v1/simple-orders")
     public List<Order> ordersV1(){//EAGER로 변경시 : findAllByString : JPQL은 그대로 SQL로 번역. =>Order만 가져오는 쿼리인데 EAGER로 되있으면 연관된 엔티티 모두 다 조회한다!!(N+1문제 발생), 다른 API에서 불필요한 데이터들도 끌고 온다!
-        List<Order> all = orderRepository.findAllByCriteria(new OrderSearch());//List<Order>
+        List<Order> all = orderRepository.findAll(new OrderSearch());//List<Order>
         return all;//
 //        for (Order order : all) {
 //            order.getMember().getName();//Lazy 강제 초기화
@@ -44,9 +44,8 @@ public class OrderSimpleApiController {
 
     @GetMapping("/api/v2/simple-orders")
     public List<SimpleOrderDto> ordersV2(){
-        //ORDER 2개
-        List<Order> orders = orderRepository.findAllByCriteria(new OrderSearch());
-        //루프
+
+        List<Order> orders = orderRepository.findAll(new OrderSearch());//ORDER 2개
         List<SimpleOrderDto> result = orders.stream()//Order를 DTO로 변환!
                 .map(o -> new SimpleOrderDto(o))
                 .collect(toList());

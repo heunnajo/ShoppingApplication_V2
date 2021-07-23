@@ -10,7 +10,6 @@ import jpabook_v2.jpashop_v2.repository.order.query.OrderFlatDto;
 import jpabook_v2.jpashop_v2.repository.order.query.OrderItemQueryDto;
 import jpabook_v2.jpashop_v2.repository.order.query.OrderQueryDto;
 import jpabook_v2.jpashop_v2.repository.order.query.OrderQueryRepository;
-import jpabook_v2.jpashop_v2.service.query.OrderQueryService;
 import lombok.Data;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -35,7 +34,7 @@ public class OrderApiController {
 
     @GetMapping("/api/v1/orders")
     public List<Order> ordersV1() {
-        List<Order> all = orderRepository.findAllByCriteria(new OrderSearch());
+        List<Order> all = orderRepository.findAll(new OrderSearch());
         //프록시 객체에 접근하여 강제 초기화.
         for (Order order : all) {
             order.getMember().getName();
@@ -48,17 +47,18 @@ public class OrderApiController {
     }
     @GetMapping("/api/v2/orders")
     public List<OrderDto> ordersV2() {
-        List<Order> orders = orderRepository.findAllByCriteria(new OrderSearch());
+        List<Order> orders = orderRepository.findAll(new OrderSearch());
         List<OrderDto> result = orders.stream()
                 .map(o -> new OrderDto(o))
                 .collect(Collectors.toList());
         return result;
     }
+    /* OSIV : false(OSIV 껐을 때, OrderQueryService(쿼리용 service) 생성
     private final OrderQueryService orderQueryService;
     @GetMapping("/api/v3/orders")
     public List<OrderDto> ordersV33() {
         return orderQueryService.ordersV3();
-    }
+    }*/
 
     @GetMapping("/api/v3/orders")
     public List<OrderDto> ordersV3() {
